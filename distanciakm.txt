@@ -1,0 +1,32 @@
+function distance () {
+var Planilha = "Página2" ;
+var Start = 10;
+var End = 11;
+var Inicio = 2; 
+var colDist = 12;
+var colDist2 = 13;
+var naoTem = "Não ésta correto";
+
+var ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(Planilha);
+var lr = ss.getLastRow();
+
+
+
+for(var i =Inicio; i<= lr; i++){ 
+var EnderStart = ss.getRange(i,10).getValue();
+var EnderEnd = ss.getRange(i,11).getValue();
+
+
+var mapObj = Maps.newDirectionFinder();
+mapObj.setOrigin(EnderStart);
+mapObj.setDestination(EnderEnd);
+var directions = mapObj.getDirections();
+var km = directions ["routes"][0]["legs"][0]["distance"]["value"]*0.001+"km"
+var km2 = directions ["routes"][0]["legs"][0]["duration"]["value"]/60+"min"
+Logger.log(km);
+
+ss.getRange(i,colDist).setValue(km);
+ss.getRange(i,colDist2).setValue(km2);
+
+}
+}

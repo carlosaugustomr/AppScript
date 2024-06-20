@@ -1,0 +1,41 @@
+function myagenda() {
+  var valores = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getDataRange().getValues();
+
+var agendar = CalendarApp.getDefaultCalendar();
+for (var i = 1; i < valores.length; i++){
+var linha = valores [i];
+var dia = linha[0];
+var horafim = linha[1];
+var titulo = linha[2];
+var descricao = linha[3];
+var prioridade = linha[4];
+
+//formatar data início e fim
+var dataInicio = new Date(dia);
+var dataFim = new Date(dia);
+dataInicio.setHours(horaInicio.split(":")[0].horaInicio.split(":")[1]);
+dataFim.setHours(horaFim.split(":")[0].horaFim.split(":")[1]);
+// configurar Cor do evento de acordo com prioridade
+var cor;
+switch (prioridade){
+case "Alta":
+cor = CalendarApp.EventColor.RED;
+break;
+case "Média":
+cor = CalendarApp.EventColor.YELLOW;
+break;
+case "Baixa":
+cor = CalendarApp.EventColor.GREEN;
+break;
+default:
+cor = CalendarApp.EventColor.BLUE;
+
+} 
+var evento = agenda.createEvent(titulo, dataInicio, dataFim, {description:descricao});
+evento.setColor(cor);
+//Atualizar coluna simcronizado
+planilha.getRange(i++,9).setValue("Sim");
+
+}
+
+}
